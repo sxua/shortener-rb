@@ -4,8 +4,10 @@ This is an example of URL shortener service in Ruby.
 ## Dependencies
 * Redis 1.2+ (if you have and older version you need to comment out this lines):
 
-    require 'hiredis' # speeds up the redis, works only with 1.2+
-    require 'redis/connection/hiredis' # defining Hiredis backend for redis-rb
+```ruby
+require 'hiredis' # speeds up the redis, works only with 1.2+
+require 'redis/connection/hiredis' # defining Hiredis backend for redis-rb
+```
 
 ## Running
 Just exec `ruby shortener.rb` and point your browser to `http://localhost:4567/` for shortener form.
@@ -19,9 +21,11 @@ Just exec `ruby shortener.rb` and point your browser to `http://localhost:4567/`
 ## JSON
 If you want to get response as JSON, add `require 'json'` at the top of `shortener.rb` and
 
-    post '/u' do
-      content_type :json
-      {:url_or_whatever => put_url(params[:url])}
-    end
+```ruby
+post '/u' do
+  content_type :json
+  {:url_or_whatever => put_url(params[:url])}
+end
+```
 
 instead of similar block at the bottom.
