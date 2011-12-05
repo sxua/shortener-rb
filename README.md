@@ -9,6 +9,7 @@ require 'hiredis' # speeds up the redis, works only with Redis 1.2+
 require 'redis/connection/hiredis' # defining Hiredis backend for redis-rb
 ```
 * Ruby with this gems:
+
 ```ruby
 gem install sinatra
 gem install redis
