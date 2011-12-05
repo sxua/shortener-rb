@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require 'hiredis' # speeds up the redis, works only with 1.2+
+require 'hiredis' # speeds up the redis, works only with Redis 1.2+
 require 'redis/connection/hiredis' # defining Hiredis backend for redis-rb
 require 'redis'
 
