@@ -5,8 +5,15 @@ This is an example of URL shortener service in Ruby.
 * Redis 1.2+ (if you have and older version you need to comment out this lines):
 
 ```ruby
-require 'hiredis' # speeds up the redis, works only with 1.2+
+require 'hiredis' # speeds up the redis, works only with Redis 1.2+
 require 'redis/connection/hiredis' # defining Hiredis backend for redis-rb
+```
+* Ruby with this gems:
+```ruby
+gem install sinatra
+gem install redis
+gem install hiredis
+gem install json (optional)
 ```
 
 ## Running
