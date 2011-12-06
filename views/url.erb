@@ -1,0 +1,7 @@
+<% code = params[:url] =~ URL_REGEX ? put_url(params[:url]) : nil %>
+<% if code.nil? %>
+  <p>Invalid URL</p>
+<% else %>
+  <p>Here's your URL: <a href="<%= url(code) %>"><%= url(code) %></a></p>
+  <p>And here's a statistics: <a href="<%= url("#{code}+") %>"><%= url("#{code}+") %></a></p>
+<% end %>

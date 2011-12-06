@@ -11,10 +11,7 @@ require 'redis/connection/hiredis' # defining Hiredis backend for redis-rb
 * Ruby with this gems:
 
 ```ruby
-gem install sinatra
-gem install redis
-gem install hiredis
-gem install json (optional)
+gem install sinatra redis hiredis (json)
 ```
 
 ## Running
