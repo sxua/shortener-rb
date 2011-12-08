@@ -8,7 +8,12 @@ URL_REGEX = %r{^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$}
 
 before do
   @alpha = [('a'..'z'),('A'..'Z'),('0'..'9')].map(&:to_a).flatten
-  @redis = Redis.new
+  redis_options = {:host => 'localhost', :port => 6379}
+  unless ENV["REDISTOGO_URL"].nil?
+    uri = URI.parse(ENV["REDISTOGO_URL"])
+    redis_options = {:host => uri.host, :port => uri.port, :password => uri.password}
+  end
+  @redis = Redis.new redis_options
 end
 
 helpers do
