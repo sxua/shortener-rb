@@ -1,23 +1,23 @@
 class Shortener < Sinatra::Base
-  URL_REGEX = %r{^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$}
+  URL_REGEX = %r{^http(s)?\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$}
 
   before do
-    @alpha = [('a'..'z'),('A'..'Z'),('0'..'9')].map(&:to_a).flatten
-    redis_options = {:host => 'localhost', :port => 6379}
+    @alpha = [("a".."z"), ("A".."Z"), ("0".."9")].map(&:to_a).flatten
+    redis_options = {host: "localhost", port: 6379}
     unless ENV["REDISTOGO_URL"].nil?
       uri = URI.parse(ENV["REDISTOGO_URL"])
-      redis_options = {:host => uri.host, :port => uri.port, :password => uri.password}
+      redis_options = {host: uri.host, port: uri.port, password: uri.password}
     end
     @redis = Redis.new redis_options
   end
 
   helpers do
-    def url path = ''
-      ["http://#{request.host_with_port}", path].join('/')
+    def url path = ""
+      ["http://#{request.host_with_port}", path].join("/")
     end
   
     def code_for id
-      code, base = '', @alpha.length
+      code, base = "", @alpha.length
       while id > 0
         code << @alpha[id % base]
         id /= base
@@ -27,7 +27,7 @@ class Shortener < Sinatra::Base
   
     def get_url code
       id = 0
-      code.to_s.each_char {|c| id = id * @alpha.length + @alpha.index(c)}
+      code.to_s.each_char { |c| id = id * @alpha.length + @alpha.index(c) }
       @redis.get "shortener:id:#{id}"
     end
   
@@ -49,25 +49,25 @@ class Shortener < Sinatra::Base
     end
   
     def next_free_id
-      id = rand(@alpha.length**6)
+      id = rand(@alpha.length ** 6)
       @redis.get("shortener:id:#{id}") ? next_free_id : id
     end
   end
 
-  get '/' do
-    erb :index, :layout => :application
+  get "/" do
+    erb :index, layout: :application
   end
 
-  get '/:code+' do
-    erb :stat, :layout => :application
+  get "/:code+" do
+    erb :stat, layout: :application
   end
 
-  get '/:code' do
+  get "/:code" do
     @redis.incr "shortener:code:#{params[:code]}"
     redirect get_url(params[:code])
   end
 
-  post '/u' do
+  post "/u" do
     erb :url
   end
 end
