@@ -32,7 +32,7 @@ class Shortener < Sinatra::Base
     end
   
     def get_visits code
-      @redis.get "shortener:code:#{code}"
+      @redis.get "shortener:newcode:#{code}"
     end
 
     def put_url url
